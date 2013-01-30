@@ -5,4 +5,4 @@ HyperStrata
 
 HyperStrata is a HyperMedia Library.
 
-_Lex is released under the MIT License and is Copyrighted 2011 - 2012 Dan Horrigan._
+_HyperStrata is released under the MIT License and is Copyrighted 2013 Dan Horrigan._
