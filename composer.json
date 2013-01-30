@@ -1,0 +1,15 @@
+{
+    "name": "dandoescode/hyper-strata",
+    "authors": [
+        {
+            "name": "Daniel Horrigan",
+            "email": "dan@dhorrigan.com"
+        }
+    ],
+    "require": {
+
+    },
+    "autoload": {
+        "classmap": ["src/"]
+    }
+}
