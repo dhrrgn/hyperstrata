@@ -69,4 +69,14 @@ class LinkBag implements IteratorAggregate
         return json_encode($this->toArray(), JSON_NUMERIC_CHECK);
     }
 
+    /**
+     * Returns the Json string for the Bag.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->toJson();
+    }
+
 }

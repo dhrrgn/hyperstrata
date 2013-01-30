@@ -121,4 +121,23 @@ class LinkBagTest extends PHPUnit_Framework_TestCase
         $this->assertJsonStringEqualsJsonString(json_encode($expected, JSON_NUMERIC_CHECK), $bag->toJson());
     }
 
+    /***********************
+     * __toString Tests
+     ***********************/
+
+    public function testToString()
+    {
+        $expected = array(
+            "foo" => array(
+                "method" => "GET",
+                "uri" => "/foo"
+            ),
+        );
+        $bag = new LinkBag(array(
+            new Link('foo', '/foo'),
+        ));
+
+        $this->assertJsonStringEqualsJsonString(json_encode($expected, JSON_NUMERIC_CHECK), (string) $bag);
+    }
+
 }
