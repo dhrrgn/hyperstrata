@@ -42,8 +42,8 @@ class Link
      * Sets the Link's Name.
      *
      * @param  string $name
-     * @return $this
-     * @throws InvalidArgumentException
+     * @return \HyperStrata\Link
+     * @throws \InvalidArgumentException
      */
     public function setName($name)
     {
@@ -69,8 +69,8 @@ class Link
      * Sets the Link's Uri.
      *
      * @param  string $uri
-     * @return $this
-     * @throws InvalidArgumentException
+     * @return \HyperStrata\Link
+     * @throws \InvalidArgumentException
      */
     public function setUri($uri)
     {
@@ -96,8 +96,8 @@ class Link
      * Sets the Link's Method.
      *
      * @param  string $method
-     * @return $this
-     * @throws InvalidArgumentException
+     * @return \HyperStrata\Link
+     * @throws \InvalidArgumentException
      */
     public function setMethod($method)
     {
@@ -116,6 +116,11 @@ class Link
         return $this;
     }
 
+    /**
+     * Returns the Link as an array.
+     *
+     * @return array
+     */
     public function toArray()
     {
         return array(

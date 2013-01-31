@@ -17,7 +17,7 @@ class LinkBagTest extends PHPUnit_Framework_TestCase
 
     public function testCanInstantiateWithLinks()
     {
-        $bag = new LinkBag(array(
+        $bag = new LinkBag('/users', array(
             new Link('foo', '/foo'),
             new Link('bar', '/foo'),
             new Link('baz', '/foo'),
@@ -27,6 +27,50 @@ class LinkBagTest extends PHPUnit_Framework_TestCase
         $links->setAccessible(true);
 
         $this->assertEquals(3, count($links->getValue($bag)));
+    }
+
+    /***********************
+     * getSelf Tests
+     ***********************/
+
+    public function testSelfPropertyIsProtected()
+    {
+        $bag = new LinkBag();
+        $self = new ReflectionProperty($bag, 'self');
+        $this->assertTrue($self->isProtected());
+    }
+
+    public function testGetSelf()
+    {
+        $bag = new LinkBag();
+        $self = new ReflectionProperty($bag, 'self');
+        $self->setAccessible(true);
+        $self->setValue($bag, '/foobar');
+
+        $this->assertEquals('/foobar', $bag->getSelf());
+
+    }
+
+    public function testSetSelfWithValidDate()
+    {
+        $bag = new LinkBag();
+        $self = new ReflectionProperty($bag, 'self');
+        $self->setAccessible(true);
+
+        $bag->setSelf('/bar');
+        $this->assertEquals('/bar', $self->getValue($bag));
+
+        $bag->setSelf(null);
+        $this->assertEquals(null, $self->getValue($bag));
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testSetSelfWithInvalidDataThrowsException()
+    {
+        $bag = new LinkBag();
+        $bag->setSelf(new stdClass);
     }
 
     /*************************************
@@ -67,7 +111,33 @@ class LinkBagTest extends PHPUnit_Framework_TestCase
      * toArray Tests
      ***********************/
 
-    public function testToArray()
+    public function testToArrayWithSelf()
+    {
+        $expected = array(
+            "self" => "/users",
+            "foo" => array(
+                "method" => "GET",
+                "uri" => "/foo"
+            ),
+            "bar" => array(
+                "method" => "POST",
+                "uri" => "/bar"
+            ),
+            "baz" => array(
+                "method" => "DELETE",
+                "uri" => "/baz"
+            ),
+        );
+        $bag = new LinkBag('/users', array(
+            new Link('foo', '/foo'),
+            new Link('bar', '/bar', 'POST'),
+            new Link('baz', '/baz', 'DELETE'),
+        ));
+
+        $this->assertEquals($expected, $bag->toArray());
+    }
+
+    public function testToArrayWithoutSelf()
     {
         $expected = array(
             "foo" => array(
@@ -83,7 +153,7 @@ class LinkBagTest extends PHPUnit_Framework_TestCase
                 "uri" => "/baz"
             ),
         );
-        $bag = new LinkBag(array(
+        $bag = new LinkBag(null, array(
             new Link('foo', '/foo'),
             new Link('bar', '/bar', 'POST'),
             new Link('baz', '/baz', 'DELETE'),
@@ -99,6 +169,7 @@ class LinkBagTest extends PHPUnit_Framework_TestCase
     public function testToJson()
     {
         $expected = array(
+            "self" => "/users",
             "foo" => array(
                 "method" => "GET",
                 "uri" => "/foo"
@@ -112,7 +183,7 @@ class LinkBagTest extends PHPUnit_Framework_TestCase
                 "uri" => "/baz"
             ),
         );
-        $bag = new LinkBag(array(
+        $bag = new LinkBag('/users', array(
             new Link('foo', '/foo'),
             new Link('bar', '/bar', 'POST'),
             new Link('baz', '/baz', 'DELETE'),
@@ -128,12 +199,13 @@ class LinkBagTest extends PHPUnit_Framework_TestCase
     public function testToString()
     {
         $expected = array(
+            "self" => "/users",
             "foo" => array(
                 "method" => "GET",
                 "uri" => "/foo"
             ),
         );
-        $bag = new LinkBag(array(
+        $bag = new LinkBag('/users', array(
             new Link('foo', '/foo'),
         ));
 

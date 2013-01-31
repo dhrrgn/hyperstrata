@@ -2,25 +2,15 @@
 
 namespace HyperStrata;
 
-class InstanceResource implements ResourceInterface
+interface ResourceInterface
 {
-    protected $linkBag;
-
-    public function __construct()
-    {
-        $this->linkBag = new LinkBag;
-    }
-
     /**
      * Sets the Resource Base URI.
      *
      * @param  string $uri
      * @return \HyperStrata\ResourceInterface
      */
-    public function setUri($uri)
-    {
-
-    }
+    public function setUri($uri);
 
     /**
      * Adds a link to the Resource's LinkBag.
@@ -28,10 +18,7 @@ class InstanceResource implements ResourceInterface
      * @param  \HyperStrata\Link $link
      * @return \HyperStrata\ResourceInterface
      */
-    public function addLink(Link $link)
-    {
-
-    }
+    public function addLink(Link $link);
 
     /**
      * Adds multiple links to the Resource's LinkBag.  $links must be an array of
@@ -40,38 +27,26 @@ class InstanceResource implements ResourceInterface
      * @param  array $links
      * @return \HyperStrata\ResourceInterface
      */
-    public function addLinks(array $links)
-    {
-
-    }
+    public function addLinks(array $links);
 
     /**
      * Returns the current Resource as an array.
      *
      * @return array
      */
-    public function toArray()
-    {
-
-    }
+    public function toArray();
 
     /**
      * Returns the Resource as a JSON encoded string.
      *
      * @return string
      */
-    public function toJson()
-    {
-
-    }
+    public function toJson();
 
     /**
      * Returns the Resource as a JSON encoded string.
      *
      * @return string
      */
-    public function __toString()
-    {
-        return $this->toJson();
-    }
+    public function __toString();
 }
