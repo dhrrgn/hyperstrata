@@ -3,8 +3,7 @@
 use HyperStrata\Link;
 use HyperStrata\LinkBag;
 
-class LinkBagTest extends PHPUnit_Framework_TestCase
-{
+class LinkBagTest extends PHPUnit_Framework_TestCase {
     /***********************
      * Instantiation Tests
      ***********************/

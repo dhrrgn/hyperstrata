@@ -10,49 +10,27 @@ class LinkTest extends PHPUnit_Framework_TestCase
 
     public function testCanInstantiate()
     {
-        $link = new Link('foo');
-        $this->assertInstanceOf('HyperStrata\Link', $link);
+        $this->assertInstanceOf('HyperStrata\Link', new Link('foo'));
     }
 
     public function testInstatiationSetsName()
     {
-        $link = new Link('foo');
-        $name = new ReflectionProperty($link, 'name');
-        $name->setAccessible(true);
-
-        $this->assertEquals('foo', $name->getValue($link));
+        $this->assertAttributeEquals('foo', 'name', new Link('foo'));
     }
 
     public function testCanInstantiateWithUri()
     {
-        $link = new Link('foo', '/users');
-        $uri = new ReflectionProperty($link, 'uri');
-        $uri->setAccessible(true);
-
-        $this->assertEquals('/users', $uri->getValue($link));
-
+        $this->assertAttributeEquals('/users', 'uri', new Link('foo', '/users'));
     }
 
     public function testCanInstantiateWithMethod()
     {
-        $link = new Link('foo', '/users', 'DELETE');
-        $method = new ReflectionProperty($link, 'method');
-        $method->setAccessible(true);
-
-        $this->assertEquals('DELETE', $method->getValue($link));
-
+        $this->assertAttributeEquals('DELETE', 'method', new Link('foo', '/users', 'DELETE'));
     }
 
     /***********************
      * Name Tests
      ***********************/
-
-    public function testNamePropertyIsProtected()
-    {
-        $link = new Link('foo');
-        $name = new ReflectionProperty($link, 'name');
-        $this->assertTrue($name->isProtected());
-    }
 
     public function testGetName()
     {
@@ -71,10 +49,7 @@ class LinkTest extends PHPUnit_Framework_TestCase
         $link = new Link('foo');
         $link->setName('bar');
 
-        $name = new ReflectionProperty($link, 'name');
-        $name->setAccessible(true);
-
-        $this->assertEquals('bar', $name->getValue($link));
+        $this->assertAttributeEquals('bar', 'name', $link);
     }
 
     /**
@@ -89,13 +64,6 @@ class LinkTest extends PHPUnit_Framework_TestCase
     /***********************
      * Uri Tests
      ***********************/
-
-    public function testUriPropertyIsProtected()
-    {
-        $link = new Link('foo');
-        $uri = new ReflectionProperty($link, 'uri');
-        $this->assertTrue($uri->isProtected());
-    }
 
     public function testGetUri()
     {
@@ -114,9 +82,7 @@ class LinkTest extends PHPUnit_Framework_TestCase
         $link = new Link('foo');
         $link->setUri('/users');
 
-        $uri = new ReflectionProperty($link, 'uri');
-        $uri->setAccessible(true);
-        $this->assertEquals('/users', $uri->getValue($link));
+        $this->assertAttributeEquals('/users', 'uri', $link);
 
     }
 
@@ -132,13 +98,6 @@ class LinkTest extends PHPUnit_Framework_TestCase
     /***********************
      * Method Tests
      ***********************/
-
-    public function testMethodPropertyIsProtected()
-    {
-        $link = new Link('foo');
-        $method = new ReflectionProperty($link, 'method');
-        $this->assertTrue($method->isProtected());
-    }
 
     public function testGetMethod()
     {
@@ -157,9 +116,7 @@ class LinkTest extends PHPUnit_Framework_TestCase
         $link = new Link('foo');
         $link->setMethod('POST');
 
-        $method = new ReflectionProperty($link, 'method');
-        $method->setAccessible(true);
-        $this->assertEquals('POST', $method->getValue($link));
+        $this->assertAttributeEquals('POST', 'method', $link);
 
     }
 
@@ -168,9 +125,7 @@ class LinkTest extends PHPUnit_Framework_TestCase
         $link = new Link('foo');
         $link->setMethod('post');
 
-        $method = new ReflectionProperty($link, 'method');
-        $method->setAccessible(true);
-        $this->assertEquals('POST', $method->getValue($link));
+        $this->assertAttributeEquals('POST', 'method', $link);
 
     }
 

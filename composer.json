@@ -7,7 +7,7 @@
         }
     ],
     "require": {
-
+        "mockery/mockery": ">=0.7.2"
     },
     "autoload": {
         "classmap": ["src/"]
