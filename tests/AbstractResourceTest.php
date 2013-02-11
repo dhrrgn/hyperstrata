@@ -8,7 +8,7 @@ class AbstractResourceTest extends PHPUnit_Framework_TestCase
 
     public function testInstantiationCreatesLinkBag()
     {
-        $mock = Mockery::mock('HyperStrata\AbstractResource[toArray,setData]', array(''));
+        $mock = $this->getMockForAbstractClass('HyperStrata\AbstractResource');
 
         $this->assertAttributeInstanceOf('HyperStrata\LinkBag', 'linkBag', $mock);
     }
@@ -22,9 +22,10 @@ class AbstractResourceTest extends PHPUnit_Framework_TestCase
                 'uri'    => '/users'
             )
         );
-        $mock = Mockery::mock('HyperStrata\AbstractResource[toArray,setData]');
-        $mock->shouldReceive('toArray')->andReturn($linksArr)->mock();
-
+        $mock = $this->getMockForAbstractClass('HyperStrata\AbstractResource');
+        $mock->expects($this->once())
+             ->method('toArray')
+             ->will($this->returnValue($linksArr));
 
         $this->assertJsonStringEqualsJsonString(json_encode($linksArr, JSON_NUMERIC_CHECK), $mock->toJson());
     }
