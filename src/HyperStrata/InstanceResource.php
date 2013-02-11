@@ -7,11 +7,13 @@ class InstanceResource extends AbstractResource
     /**
      * Sets the data for the Resource.
      *
-     * @return \HyperStrata\AbstractResource
+     * @return \HyperStrata\InstanceResource
      */
-    public function setData()
+    public function setData(array $data)
     {
+        $this->data = $data;
 
+        return $this;
     }
 
     /**
@@ -21,6 +23,9 @@ class InstanceResource extends AbstractResource
      */
     public function toArray()
     {
+        $arr = array();
+        $arr[$this->linksKey] = $this->linkBag->toArray();
 
+        return array_merge($arr, $this->data);
     }
 }

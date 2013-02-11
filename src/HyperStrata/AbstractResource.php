@@ -9,7 +9,7 @@ abstract class AbstractResource
      *
      * @return \HyperStrata\AbstractResource
      */
-    abstract public function setData();
+    abstract public function setData(array $data);
 
     /**
      * Returns the current Resource as an array.
@@ -23,11 +23,17 @@ abstract class AbstractResource
 
     protected $linkBag;
 
-    public function __construct($uri = null)
+    protected $linksKey = '_links';
+
+    public function __construct($uri = null, array $data = null)
     {
         // @codeCoverageIgnoreStart
         $this->linkBag = new LinkBag;
         $this->setUri($uri);
+
+        if ( ! is_null($data)) {
+            $this->setData($data);
+        }
         // @codeCoverageIgnoreEnd
     }
 
