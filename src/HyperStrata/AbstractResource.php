@@ -84,9 +84,9 @@ abstract class AbstractResource
      *
      * @return string
      */
-    public function toJson()
+    public function toJson($flags = 0)
     {
-        return json_encode($this->toArray(), JSON_NUMERIC_CHECK);
+        return json_encode($this->toArray(), $flags);
     }
 
     /**
